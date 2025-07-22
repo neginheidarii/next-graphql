@@ -35,8 +35,8 @@ const data = (await fetchPost()) as PostsResponse;
           <h2 className="text-lg font-semibold">{post.title}</h2>
           <p>{post.content}</p>
           <p className="text-sm text-gray-600">
-            Category: {post.category?.name}
-          </p>
+           Categories: {post.category?.map((cat: any) => cat.name).join(", ")}
+        </p>
         </div>
       ))}
     </main>
