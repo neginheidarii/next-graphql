@@ -15,12 +15,12 @@ const fetchPost = async() => {
             category {
             id
             name
+                }
             }
-        }
         }
     ` 
 
-      const data = await request(endpoint, getPostQuery);
+    const data = await request(endpoint, getPostQuery);
      return data;
 
 
