@@ -1,17 +1,5 @@
 import { request, gql } from "graphql-request";
-
-type Post = {
-  id: string;
-  title: string;
-  content: string;
-  category: {
-    name: string;
-  };
-};
-
-type PostsResponse = {
-  posts: Post[];
-};
+import { PostsResponse } from "@/types";
 
 const fetchPost = async () => {
   const endpoint = "http://localhost:4000/graphql";
