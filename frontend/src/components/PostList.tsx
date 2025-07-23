@@ -1,4 +1,4 @@
-import fetchPost from "@/services/fetchPost";
+import fetchPost from "@/services/fetchPosts";
 import DropdownBtn from "./DropdownBtn";
 
 const PostList = async () => {
