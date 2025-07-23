@@ -1,4 +1,5 @@
 import fetchPost from "@/services/fetchPost";
+import DropdownBtn from "./DropdownBtn";
 
 const PostList = async () => {
   const data = await fetchPost();
@@ -9,6 +10,7 @@ const PostList = async () => {
   return (
     <main className="p-6">
       <h1 className="text-2xl font-bold mb-4">All Posts</h1>
+      <DropdownBtn />
       {posts?.map((post: any) => (
         <div key={post.id} className="mb-4 border p-4 rounded">
           <h2 className="text-lg font-semibold">{post.title}</h2>
