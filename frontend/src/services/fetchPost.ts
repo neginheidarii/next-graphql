@@ -1,30 +1,37 @@
-import {request, gql} from "graphql-request"
+import { request, gql } from "graphql-request";
 
-const fetchPost = async() => {
+type Post = {
+  id: string;
+  title: string;
+  content: string;
+  category: {
+    name: string;
+  };
+};
 
-    const endpoint = "http://localhost:4000/graphql";
+type PostsResponse = {
+  posts: Post[];
+};
 
-    const getPostQuery =
+const fetchPost = async () => {
+  const endpoint = "http://localhost:4000/graphql";
 
-    gql`
-        {
-        posts {
-            id
-            title
-            content
-            category {
-            id
-            name
-                }
-            }
+  const getPostQuery = gql`
+    {
+      posts {
+        id
+        title
+        content
+        category {
+          id
+          name
         }
-    ` 
+      }
+    }
+  `;
 
-    const data = await request(endpoint, getPostQuery);
-     return data;
-
-
-
-}
+  const data = await request<PostsResponse>(endpoint, getPostQuery);
+  return data;
+};
 
 export default fetchPost;
