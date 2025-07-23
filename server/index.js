@@ -11,7 +11,7 @@ const resolvers = {
     posts: () => posts,
     post: (_, { id }) => posts.find((entity) => entity.id === id),
     categories: () => categories,
-    category: (_, { id }) => categories.find((entity) => cat.id === id),
+    category: (_, { id }) => categories.find((cat) => cat.id === id),
   },
 };
 
