@@ -1,38 +1,24 @@
 "use client";
 
-import React, { JSX, useEffect, useState } from "react";
-import { request, gql } from "graphql-request";
-import { Category } from "@/types";
+import React, { useEffect, useState } from "react";
+import { Category } from "@/types/category";
+import fetchCategories from "@/services/fetchCategories";
 
-const endpoint = "http://localhost:4000/graphql";
-
-const categoryQuery = gql`
-  query {
-    categories {
-      id
-      name
-    }
-  }
-`;
-
-export default function Dropdown(): JSX.Element {
+const Dropdown: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [open, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    const fetchCategories = async () => {
+    const getCategories = async () => {
       try {
-        const data: { categories: Category[] } = await request(
-          endpoint,
-          categoryQuery
-        );
+        const data = await fetchCategories();
         setCategories(data.categories);
-      } catch (err) {
-        console.error("Failed to fetch categories:", err);
+      } catch (error) {
+        console.error("Failed to fetch categories:", error);
       }
     };
 
-    fetchCategories();
+    getCategories();
   }, []);
 
   return (
@@ -87,4 +73,6 @@ export default function Dropdown(): JSX.Element {
       </div>
     </div>
   );
-}
+};
+
+export default Dropdown;
