@@ -1,5 +1,5 @@
 import { request, gql } from "graphql-request";
-import { PostsResponse } from "@/types";
+import { PostsResponse } from "@/types/post";
 
 const fetchPost = async () => {
   const endpoint = "http://localhost:4000/graphql";
