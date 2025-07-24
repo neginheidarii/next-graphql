@@ -4,7 +4,7 @@ export type Post = {
   id: string;
   title: string;
   content: string;
-  category: Category[]; 
+  category: Category[];
 };
 
 export type PostsResponse = {
