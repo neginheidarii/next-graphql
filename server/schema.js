@@ -14,7 +14,7 @@ export default gql`
   }
 
   type Query {
-    posts: [Post]
+    posts(categoryId: ID): [Post]
     post(id: ID!): Post
     categories: [Category]
     category(id: ID!): Category
