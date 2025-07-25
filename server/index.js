@@ -8,7 +8,16 @@ const resolvers = {
     category: (post) => post.category.map((id) => categories.find((cat) => cat.id === id)),
   },
   Query: {
-    posts: () => posts,
+    posts: (_, args) => {
+  const { categoryId } = args;
+
+  if (!categoryId) return posts;
+
+  return posts.filter((post) =>
+    post.category.includes(categoryId)
+  );
+},
+
     post: (_, { id }) => posts.find((entity) => entity.id === id),
     categories: () => categories,
     category: (_, { id }) => categories.find((cat) => cat.id === id),
