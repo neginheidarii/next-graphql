@@ -5,8 +5,8 @@ const fetchPosts = async (categoryId?: string) => {
   const endpoint = "http://localhost:4000/graphql";
 
   const getPostQuery = gql`
-    {
-      posts {
+    query GetPosts($categoryId: ID) {
+      posts(categoryId: $categoryId) {
         id
         title
         content
@@ -15,10 +15,13 @@ const fetchPosts = async (categoryId?: string) => {
           name
         }
       }
+
     }
   `;
 
-  const data = await request<PostsResponse>(endpoint, getPostQuery, {categoryId});
+  const data = await request<PostsResponse>(endpoint, getPostQuery, {
+    categoryId,
+  });
   return data;
 };
 
