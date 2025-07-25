@@ -1,6 +1,11 @@
+"use client"
 import { PostsResponse } from "@/types/post";
+import { useState } from "react";
 
 const PostList = ({ posts }: PostsResponse) => {
+
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string | undefined>(undefined);
+
   return (
     <>
       {posts?.map((post: any) => (

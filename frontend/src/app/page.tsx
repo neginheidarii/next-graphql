@@ -1,20 +1,21 @@
-import PostList from "@/components/PostList";
-import fetchPost from "@/services/fetchPosts";
+import fetchPosts from "@/services/fetchPosts";
 import Dropdown from "@/components/DropdownBtn";
+import PostList from "@/components/PostList";
 
-export default async function Home() {
-  const data = await fetchPost();
-  const posts = data.posts;
+
+export default async function Home({
+  searchParams,
+}: {
+  searchParams?: { category?: string };
+}) {
+  const categoryId = searchParams?.category;
+  const data = await fetchPosts(categoryId);
 
   return (
-      <main className="p-6">
+    <main className="p-6">
       <h1 className="text-2xl font-bold mb-6">Blog Home</h1>
-      
-      <div className="mb-6">
-        <Dropdown />
-      </div>
-
-      <PostList posts={posts}/>
-    </main>)
-;
+      <Dropdown selectedCategoryId={categoryId} />
+      <PostList posts={data.posts} />
+    </main>
+  );
 }

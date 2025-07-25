@@ -3,11 +3,14 @@
 import React, { useEffect, useState } from "react";
 import { Category } from "@/types/category";
 import fetchCategories from "@/services/fetchCategories";
+import Link from "next/link";
+import { DropdownProps } from "@/types/dropdown";
 
-const Dropdown: React.FC = () => {
+export default function Dropdown({ selectedCategoryId }: DropdownProps) {
   const [categories, setCategories] = useState<Category[]>([]);
   const [open, setOpen] = useState<boolean>(false);
-
+// use useQuery
+// prefetched
   useEffect(() => {
     const getCategories = async () => {
       try {
@@ -24,7 +27,6 @@ const Dropdown: React.FC = () => {
   return (
     <div className="relative inline-block text-left">
       <button
-        id="dropdownDefaultButton"
         onClick={() => setOpen((prev) => !prev)}
         type="button"
         className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -52,27 +54,37 @@ const Dropdown: React.FC = () => {
           open ? "" : "hidden"
         }`}
       >
-        <ul
-          className="py-2 text-sm text-gray-700 dark:text-gray-200"
-          aria-labelledby="dropdownDefaultButton"
-        >
+        <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
+          <li>
+            <Link
+              href="/"
+              onClick={() => setOpen(false)}
+              className={`block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white ${
+                !selectedCategoryId
+                  ? "font-bold bg-gray-100 dark:bg-gray-600"
+                  : ""
+              }`}
+            >
+              All Categories
+            </Link>
+          </li>
           {categories.map((cat) => (
             <li key={cat.id}>
-              <button
-                className="w-full text-left block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                onClick={() => {
-                  console.log("Selected category ID:", cat.id);
-                  setOpen(false);
-                }}
+              <Link
+                href={`/?category=${cat.id}`}
+                onClick={() => setOpen(false)}
+                className={`block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white ${
+                  selectedCategoryId === cat.id
+                    ? "font-bold bg-gray-100 dark:bg-gray-600"
+                    : ""
+                }`}
               >
                 {cat.name}
-              </button>
+              </Link>
             </li>
           ))}
         </ul>
       </div>
     </div>
   );
-};
-
-export default Dropdown;
+}
