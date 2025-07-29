@@ -22,7 +22,7 @@ const fetchPosts = async (categoryId?: string) => {
   const data = await request<PostsResponse>(endpoint, getPostQuery, {
     categoryId,
   });
-  return data;
+  return data.posts;
 };
 
 export default fetchPosts;
