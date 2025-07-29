@@ -1,21 +1,28 @@
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
 import fetchPosts from "@/services/fetchPosts";
-import Dropdown from "@/components/Dropdown";
-import PostList from "@/components/PostList";
+import PostListContainer from "@/components/PostListContainer";
+import Provider from "@/providers/Provider";
 
-export default async function Home({
-  searchParams,
-}: {
-  searchParams?: { category?: string };
-}) {
-  const categoryId = searchParams?.category;
-  const data = await fetchPosts(categoryId);
+export default async function Home() {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: ["posts", ""],
+    queryFn: () => fetchPosts(),
+  });
+
+  const dehydratedState = dehydrate(queryClient)
 
   return (
-    <main className="p-6">
-      <h1 className="text-2xl font-bold mb-6">Blog Home</h1>
-      <Dropdown selectedCategoryId={categoryId} />
-      <div className="m-4"></div>
-      <PostList posts={data.posts} />
-    </main>
+    <Provider>
+      <HydrationBoundary state={dehydratedState}>
+          <PostListContainer />
+      </HydrationBoundary>
+
+    </Provider>
   );
 }
