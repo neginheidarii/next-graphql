@@ -10,8 +10,13 @@ import { Post } from "@/types/post";
 const PostListContainer = () => {
   const queryClient = useQueryClient();
 
-  const [selectedCategoryId, setSelectedCategoryId] = useState<string | undefined>("");
-  const [posts , setPosts] = useState<Post[]>(queryClient.getQueryData(["posts", ""]) || []);
+  const [selectedCategoryId, setSelectedCategoryId] = useState<
+    string | undefined
+  >("");
+
+  const [posts, setPosts] = useState<Post[]>(
+    queryClient.getQueryData(["posts", ""]) || []
+  );
 
   const { mutate } = useMutation({
     mutationKey: ["posts"],
@@ -24,13 +29,16 @@ const PostListContainer = () => {
     mutate(catId || undefined);
   };
 
-    return (
+  return (
     <main className="p-6">
       <h1 className="text-2xl font-bold mb-6">Blog Home</h1>
-      <Dropdown selectedCategoryId={selectedCategoryId} onCategoryChange={handleCategoryChange} />
+      <Dropdown
+        selectedCategoryId={selectedCategoryId}
+        onCategoryChange={handleCategoryChange}
+      />
       <PostList posts={posts} />
     </main>
   );
-}
+};
 
 export default PostListContainer;

@@ -15,14 +15,13 @@ export default async function Home() {
     queryFn: () => fetchPosts(),
   });
 
-  const dehydratedState = dehydrate(queryClient)
+  const dehydratedState = dehydrate(queryClient);
 
   return (
     <Provider>
       <HydrationBoundary state={dehydratedState}>
-          <PostListContainer />
+        <PostListContainer />
       </HydrationBoundary>
-
     </Provider>
   );
 }

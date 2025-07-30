@@ -11,7 +11,6 @@ type Props = {
 
 export default function DropdownMenu({
   categories,
-  selectedCategoryId,
   onClose,
   onCategorySelect,
 }: Props) {

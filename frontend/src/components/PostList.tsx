@@ -1,10 +1,8 @@
-"use client"
+"use client";
 import { PostsResponse } from "@/types/post";
-import { useState } from "react";
 
 const PostList = ({ posts }: PostsResponse) => {
-      console.log("Posts in PostList:", posts);
-
+  // console.log("Posts in PostList:", posts);
 
   return (
     <>

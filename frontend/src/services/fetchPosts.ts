@@ -15,7 +15,6 @@ const fetchPosts = async (categoryId?: string) => {
           name
         }
       }
-
     }
   `;
 

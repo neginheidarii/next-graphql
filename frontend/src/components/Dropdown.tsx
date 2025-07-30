@@ -5,7 +5,10 @@ import { useCategories } from "@/hooks/useCategories";
 import DropdownMenu from "./DropdownMenu";
 import { DropdownProps } from "@/types/dropdown";
 
-export default function Dropdown({ selectedCategoryId, onCategoryChange }: DropdownProps) {
+export default function Dropdown({
+  selectedCategoryId,
+  onCategoryChange,
+}: DropdownProps) {
   const [open, setOpen] = useState(false);
   const { data, isLoading, isError } = useCategories();
 
@@ -42,7 +45,7 @@ export default function Dropdown({ selectedCategoryId, onCategoryChange }: Dropd
           categories={data?.categories || []}
           selectedCategoryId={selectedCategoryId}
           onClose={() => setOpen(false)}
-          onCategorySelect = {onCategoryChange}
+          onCategorySelect={onCategoryChange}
         />
       )}
     </div>
